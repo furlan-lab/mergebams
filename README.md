@@ -1,3 +1,6 @@
+<p align="center"><img src="mergebams.png" alt="" width="250"></a></p>
+<hr>
+
 
 # mergebams
 ==========
