@@ -1,8 +1,6 @@
 <p align="center"><img src="mergebams.png" alt="" width="250"></a></p>
 <hr>
 
-==========
-
 version 0.1
 
 Merge sam/bam files with intelligent cell barcode preservation.  This has been tested on bam file and tsv output from the 10X Genomics Cellranger program.  The implementation of mergebams was motivated by and primarily designed for working with Cellranger output.
