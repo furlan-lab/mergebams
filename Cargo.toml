@@ -1,0 +1,22 @@
+[package]
+name = "mergebams"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+bam = "0.1.4"
+clap = { version = "2.33.0", features = ["yaml"] }
+bytes = "1.1.0"
+simple-log = "1.5.1"
+toml = "0.5.7"
+serde_derive="1.0.140"
+serde="1.0.147"
+csv="1.1.6"
+
+[[bin]]
+name = "mergebams"
+path = "src/mergebams.rs"
+
+
