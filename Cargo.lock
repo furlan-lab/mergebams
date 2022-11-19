@@ -437,6 +437,7 @@ dependencies = [
  "bytes",
  "clap",
  "csv",
+ "flate2",
  "serde",
  "serde_derive",
  "simple-log",
