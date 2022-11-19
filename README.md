@@ -77,7 +77,7 @@ cd test
 
 ## Expected output
 
-**In the above example mergeBams will take input bams t1.bam and t2.bam which have the following data...**
+**In the above example mergebams will take input bams bam1.bam and bam2.bam which have the following data...**
 
 ```bash
 samtools view bam1.bam | head -n 3 -
@@ -117,7 +117,7 @@ VH00738:4:AAAW2TWHV:2:2309:76742:23037  4 * 0 0 * *0  0 ATTTTCTTTTGCGATGGTAGATTA
 VH00738:4:AAAW2TWHV:2:1605:38966:50732  4 * 0 0 * *0  0 CGTCAATGTGCCGTGTTCCTCATTATAAGGGCCCCCCATATAAGAAATATTTGGTGGACACTCAGACGAATGGAGATCGGAAGAGCGTCG  CCCCC;CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC;CCCCC;CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC  RG:Z:ITS_D544_3:1:1:AAAW2TWHV:2fr:Z:CCGTGTTCCTCATTA fq:Z:CCCCCCCCCCCCCCC  fb:Z:CCGTGTTCCTCATTA  fx:Z:CD71 xf:i:24 CR:Z:CCATTCGTCTGAGTGT CY:Z:CCCCCCCCCCCCC;CC UR:Z:CCACCAAATAUY:Z:CCCCCCCCCC  UB:Z:CCACCAAATA CB:Z:t2_CCATTCGTCTGAGTGT-1
 ```
 
-Similarly and if desired, mergeBams will concatenate and add labels to barcodes.tsv files (for compressed barcodes.tsv.gz see below for an explanation of how compression of barcodes files are handled).  For example, in the above case...
+Similarly and if desired, mergebams will concatenate and add labels to barcodes.tsv files (for compressed barcodes.tsv.gz see below for an explanation of how compression of barcodes files are handled).  For example, in the above case...
 
 
 ```bash
