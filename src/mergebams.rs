@@ -1,4 +1,7 @@
+
 /**
+
+*********create test files*********
 
 cd ~/develop/mergebams
 cargo build --release
@@ -7,6 +10,15 @@ samtools view -h -s 0.0001 /home/sfurlan/scratch/MRB2/ITS_D383_3/outs/per_sample
 samtools view -h -s 0.0001 /home/sfurlan/scratch/MRB2/ITS_D544_3/outs/per_sample_outs/ITS_D544_3/count/sample_alignments.bam > ~/develop/mergebams/test/bam2.bam
 head /home/sfurlan/scratch/MRB2/ITS_D544_3/outs/per_sample_outs/ITS_D544_3/count/sample_barcodes.csv
 
+************************************
+
+
+*********installation of mergebams*************
+* 
+* 
+* *********************************************
+
+*********usage of mergebams*********
 
 cd ~/develop/mergebams/test
 cargo build --release
@@ -15,6 +27,10 @@ zcat < out_barcodes.tsv.gz
 samtools view out_bam.bam | head -n 200
 samtools sort out_bam.bam > out_bam.sorted.bam
 samtools view out_bam.sorted.bam | head -n 200
+
+************************************
+
+
 **/
 
 
