@@ -15,6 +15,7 @@ serde_derive="1.0.140"
 serde="1.0.147"
 csv="1.1.6"
 flate2 = "1.0.24"
+differ = "1.0.4"
 
 [[bin]]
 name = "mergebams"

@@ -237,6 +237,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "differ"
+version = "1.0.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3891198bf010b6c988c293a7cb17a3fd3396256567c1bcd6ae0015c61cedc98"
+dependencies = [
+ "fnv",
+]
+
+[[package]]
 name = "flate2"
 version = "1.0.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -437,6 +446,7 @@ dependencies = [
  "bytes",
  "clap",
  "csv",
+ "differ",
  "flate2",
  "serde",
  "serde_derive",
