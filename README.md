@@ -1,9 +1,15 @@
 <p align="center"><img src="mergebams.png" alt="" width="250"></a></p>
 <hr>
 
-version 0.1
+version 0.2
 
 Merge sam/bam files with intelligent cell barcode preservation.  This has been tested on bam file and tsv output from the 10X Genomics Cellranger program.  The implementation of mergebams was motivated by and primarily designed for working with Cellranger output.
+
+## Updates
+
+version 0.2, mergebams will check the headers of all bams to ensure they contain the same sequence names.  mergebams will not merge bams that do not have the same reference names.  mergebams will use the header from the first bam in the input argument. mergebams will now add a header comment that includes the filenames of the bams that were merged.
+
+version 0.1 - first version in rust - implemented using the python version as a reference. Rust implementation is faster and supports multi-threading.
 
 ## Requirements
 
