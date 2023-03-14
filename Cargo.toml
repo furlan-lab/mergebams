@@ -1,6 +1,6 @@
 [package]
 name = "mergebams"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -16,6 +16,7 @@ serde="1.0.147"
 csv="1.1.6"
 flate2 = "1.0.24"
 differ = "1.0.4"
+itertools = "0.10.5"
 
 [[bin]]
 name = "mergebams"
