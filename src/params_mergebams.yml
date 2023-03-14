@@ -22,14 +22,14 @@ args:
         required: false
         help: barcodes files, comma-separated gzipped or not
     - threads:
-        long: out
+        long: threads
         short: t
         takes_value: true
         required: false
         help: threads
     - out:
         long: out
-        short: out
+        short: o
         takes_value: true
         required: false
         help: folder for output (merged_bam.bam, merged_bcs.tsv.gz)
