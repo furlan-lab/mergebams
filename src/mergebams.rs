@@ -171,7 +171,7 @@ fn checkheaders(params: Params) -> Result<(bam::Header, Params), &'static str>{
                 _ => count+=1,
             }
         }
-        eprintln!("Found {} discrepencies between sequence names in the header of {} and {}", count, bam_pairs[0], bam_pairs[1]);
+        eprintln!("Found {} discrepencies between sequence names in the header of:\n\n{}\nand:\n\n{}\n", count, bam_pairs[0], bam_pairs[1]);
         grand_count+=count;
     }
     if grand_count == 0{
@@ -232,7 +232,7 @@ fn addtags(params: Params, header: bam::Header) -> Params{
         .write_header(true)
         .additional_threads(write_threads)
         .from_path(out_bam, header.clone()).unwrap();
-    eprintln!("OK: Writing {} \n\tfrom {}", out_bam_msg, bam_vec_msg);
+    eprintln!("Headers ok\nWriting:\n\n{}\nfrom:\n\n{}\n", out_bam_msg, bam_vec_msg);
     for (pos, inbam) in bam_vec.iter().enumerate() {
         let reader = bam::BamReader::from_path(inbam.to_string(), read_threads).unwrap();
         for record in reader {
