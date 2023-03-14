@@ -26,7 +26,7 @@ head /home/sfurlan/scratch/MRB2/ITS_D544_3/outs/per_sample_outs/ITS_D544_3/count
 
 cd ~/develop/mergebams/test
 cargo build --release
-../target/release/mergebams -i bam1.bam,bam2.bam -l test1_,test2_ -b barcodes1.tsv.gz,barcodes2.tsv.gz -o .
+ls../target/release/mergebams -i bam1.bam,bam2.bam -l test1_,test2_ -b barcodes1.tsv.gz,barcodes2.tsv.gz -o .
 ../target/release/mergebams -i bam2.bam,bam3.bam -l test1_,test2_ -b barcodes1.tsv.gz,barcodes2.tsv.gz -o .
 ../target/release/mergebams -i bam3.bam,bam4.bam -l test1_,test2_ -b barcodes1.tsv.gz,barcodes2.tsv.gz -o .
 ../target/release/mergebams -i bam1.bam,bam2.bam,bam3.bam,bam4.bam -l test1_,test2_,test3_,test4_ -b barcodes1.tsv.gz,barcodes2.tsv.gz,barcodes3.tsv.gz,barcodes4.tsv.gz -o .
@@ -37,6 +37,8 @@ zcat < out_barcodes.tsv.gz
 samtools view out_bam.bam | head -n 200
 samtools sort out_bam.bam > out_bam.sorted.bam
 samtools view out_bam.sorted.bam | head -n 200
+
+
 
 ************************************
 
@@ -216,6 +218,7 @@ fn make_new_header(bam_vec: Vec<&str>) -> bam::Header {
 
 fn addtags(params: Params, header: bam::Header) -> Params{
     let out_bam = params.out.to_string()+"/out_bam.bam";
+    let fail_bam = params.out.to_string()+"/fail_bam.bam";
     let out_bam_msg = out_bam.clone();
     let inputs = params.inputs.to_string();
     let bam_vec = inputs.split(",").collect::<Vec<&str>>();
@@ -227,11 +230,18 @@ fn addtags(params: Params, header: bam::Header) -> Params{
     } else {
         (0 as u16, 0 as u16)
     };
+    let mut fail_count = 0;
+    let mut pass_count = 0;
+    let mut other_count = 0;
     // let hreader = bam::BamReader::from_path(bam_vec[0], read_threads).unwrap();
-    let mut writer = bam::BamWriter::build()
+    let mut pass_writer = bam::BamWriter::build()
         .write_header(true)
         .additional_threads(write_threads)
         .from_path(out_bam, header.clone()).unwrap();
+    let mut fail_writer = bam::BamWriter::build()
+        .write_header(true)
+        .additional_threads(0)
+        .from_path(fail_bam, header.clone()).unwrap();
     eprintln!("Headers ok\nWriting:\n\n{}\nfrom:\n\n{}\n", out_bam_msg, bam_vec_msg);
     for (pos, inbam) in bam_vec.iter().enumerate() {
         let reader = bam::BamReader::from_path(inbam.to_string(), read_threads).unwrap();
@@ -245,13 +255,28 @@ fn addtags(params: Params, header: bam::Header) -> Params{
                     let new_cb = &[preftag, oldtag].concat();
                     newrecord.tags_mut().remove(b"CB");
                     newrecord.tags_mut().push_string(b"CB", &new_cb);
-                    writer.write(&newrecord).unwrap();
+                    pass_writer.write(&newrecord).unwrap();
+                    pass_count+=1;
                 },
-                Some(TagValue::Char(value)) => println!("Char = {}", value),
-                _ => panic!("ERROR: 'CB' does not appear to have string type"),
+                Some(TagValue::Char(value)) => {
+                    let labstr = lab_vec[pos];
+                    let preftag = labstr.as_bytes().to_vec();
+                    let oldtag = value.to_string().as_bytes().to_vec();
+                    let new_cb = &[preftag, oldtag].concat();
+                    newrecord.tags_mut().remove(b"CB");
+                    newrecord.tags_mut().push_string(b"CB", &new_cb);
+                    pass_writer.write(&newrecord).unwrap();
+                    other_count+=1;
+                },
+                _ => {
+                    // eprintln!("ERROR: 'CB' not found");
+                    fail_writer.write(&newrecord).unwrap();
+                    fail_count+=1;
+                }
             }
         }
     }
+    eprintln!("Processed all reads!!\nFound:\n{} - reads PASSING\n{} - reads PASSING but with issues\n{} - reads FAILING", pass_count, other_count, fail_count);
     return params;
 }
     
