@@ -166,6 +166,7 @@ t2_TTTGTCATCCGCGGTA-1
 t2_TTTGTCATCTCGCTTG-1
 ```
 
+The program will also output a file called fail_bam.bam which contains any reads that could not be prepended or merged for unforeseen reasons.  This ensures that the process continues to completion.  We envision this arises and would need to be inspected only in the rarest of situations.
 
 Note that this program is compression aware and will detect compression of the barcodes file.  
 
